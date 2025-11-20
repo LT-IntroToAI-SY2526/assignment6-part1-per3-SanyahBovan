@@ -45,16 +45,16 @@ def create_scatter_plot(data):
         data: pandas DataFrame with Hours and Scores columns
     """
     # TODO: Create a figure with size (10, 6)
-    
+    plt.figure(figsize=(10,6))
     # TODO: Create a scatter plot with Hours on x-axis and Scores on y-axis
     #       Use color='purple' and alpha=0.6
     
     # TODO: Add x-axis label: 'Hours Studied'
-    
+    plt.xlabel('Hours Studied', fontsize=12)
     # TODO: Add y-axis label: 'Test Score'
-    
+    plt.ylabel('Test Score', fontsize=12)
     # TODO: Add title: 'Student Test Scores vs Hours Studied'
-    
+    plt.title('Student Test Scores vs Hours Studied', fontsize=14, fontweight='bold')
     # TODO: Add a grid with alpha=0.3
     
     # TODO: Save the figure as 'scatter_plot.png' with dpi=300
