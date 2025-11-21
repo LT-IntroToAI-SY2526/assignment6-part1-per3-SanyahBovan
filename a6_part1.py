@@ -26,15 +26,18 @@ def load_and_explore_data(filename):
         pandas DataFrame containing the data
     """
     # TODO: Load the CSV file using pandas
-    
+    data = pd.read_csv(filename)
     # TODO: Print the first 5 rows
-    
+    print("=== Student Scores Data ===")
+    print(f"\nFirst 5 rows:")
+    print(data.head())
     # TODO: Print the shape of the dataset (number of rows and columns)
-    
+    print(f"\nDataset shape: {data.shape[0]} rows, {data.shape[1]} columns")
     # TODO: Print basic statistics (mean, min, max, etc.)
-    
+    print(f"\nBasic statistics:")
+    print(data.describe())
     # TODO: Return the dataframe
-    pass
+    return data
 
 
 def create_scatter_plot(data):
@@ -56,11 +59,11 @@ def create_scatter_plot(data):
     # TODO: Add title: 'Student Test Scores vs Hours Studied'
     plt.title('Student Test Scores vs Hours Studied', fontsize=14, fontweight='bold')
     # TODO: Add a grid with alpha=0.3
-    
+    plt.grid(True, alpha=0.3)
     # TODO: Save the figure as 'scatter_plot.png' with dpi=300
-    
+    plt.savefig('scatter_plot.png', dpi=300, bbox_inches='tight')
     # TODO: Show the plot
-    pass
+    plt.show()
 
 
 def split_data(data):
