@@ -77,15 +77,19 @@ def split_data(data):
         X_train, X_test, y_train, y_test
     """
     # TODO: Create X with the 'Hours' column (use double brackets to keep as DataFrame)
-    
+    X = data[['Hours']]
     # TODO: Create y with the 'Scores' column
-    
+    Y = data['Scores']
     # TODO: Split the data using train_test_split with test_size=0.2 and random_state=42
-    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
     # TODO: Print how many samples are in training and testing sets
-    
+    print(f"\n=== Data Split ===")
+    print(f"Training set: {len(X_train)} samples")
+    print(f"Testing set: {len(X_test)} samples")
     # TODO: Return X_train, X_test, y_train, y_test
-    pass
+    return X_train, X_test, y_train, y_test
 
 
 def train_model(X_train, y_train):
@@ -100,13 +104,14 @@ def train_model(X_train, y_train):
         trained LinearRegression model
     """
     # TODO: Create a LinearRegression model
-    
+    model = LinearRegression()
     # TODO: Train the model using .fit()
-    
+    model.fit(X_train, y_train)
     # TODO: Print the coefficient (slope) and intercept
-    
+    print(f"Slope (coefficient): {model.coef_[0]:.2f}")
+    print(f"Intercept: {model.intercept_:.2f}")
     # TODO: Return the trained model
-    pass
+    return model
 
 
 def evaluate_model(model, X_test, y_test):
@@ -122,17 +127,23 @@ def evaluate_model(model, X_test, y_test):
         predictions array
     """
     # TODO: Make predictions using the model
-    
+    predictions = model.predict(X_test)
     # TODO: Calculate R² score using r2_score()
-    
+    r2 = r2_score(y_test, predictions)
     # TODO: Calculate Mean Squared Error using mean_squared_error()
-    
+    mse = mean_squared_error(y_test, predictions)
     # TODO: Calculate Root Mean Squared Error (square root of MSE)
-    
+    rmse = np.sqrt(mse)
     # TODO: Print all three metrics with clear labels
+    print(f"\n=== Model Performance ===")
+    print(f"R² Score: {r2:.4f}")
+    print(f"  → Interpretation: The model explains {r2*100:.2f}% of the variance in sales")
     
+    print(f"\nMean Squared Error: ${mse:.2f}")
+    print(f"Root Mean Squared Error: ${rmse:.2f}")
+    print(f"  → Interpretation: On average, predictions are off by ${rmse:.2f}")
     # TODO: Return the predictions
-    pass
+    return predictions
 
 
 def visualize_results(X_train, y_train, X_test, y_test, predictions, model):
@@ -182,13 +193,14 @@ def make_prediction(model, hours):
         predicted test score
     """
     # TODO: Reshape hours into the format the model expects: np.array([[hours]])
-    
+    hours_array = np.array([[hours]])
+    predicted_scores = model.predict(hours_array)[0]
     # TODO: Make a prediction
-    
+    print(f"\n=== New Prediction ===")
     # TODO: Print the prediction with a clear message
-    
+    print(f"If hours is {hours}, predicted scores: ${predicted_scores:.2f}")
     # TODO: Return the predicted score
-    pass
+    return predicted_scores
 
 
 if __name__ == "__main__":
