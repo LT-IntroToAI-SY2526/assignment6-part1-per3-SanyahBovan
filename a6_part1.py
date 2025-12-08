@@ -159,26 +159,34 @@ def visualize_results(X_train, y_train, X_test, y_test, predictions, model):
         model: trained model (to plot line of best fit)
     """
     # TODO: Create a figure with size (12, 6)
-    
+    plt.figure(figsize=(12, 6))
     # TODO: Plot training data as blue scatter points with label 'Training Data'
-    
+    plt.scatter(X_train, y_train, color='blue', alpha=0.5, label='Training Data')
+
     # TODO: Plot test data (actual) as green scatter points with label 'Test Data (Actual)'
-    
+    plt.scatter(X_test, y_test, color='green', alpha=0.5, label='Test Data(Actual)')
+
     # TODO: Plot predictions as red X markers with label 'Predictions'
-    
+    plt.scatter(X_test, predictions, color='red', alpha=0.7, label='Predictions', marker='x', s=100)
+
     # TODO: Create and plot the line of best fit
     #       Hint: Create a range of X values, predict Y values, then plot as a black line
-    
+    X_range = np.linspace(X_train.min(), X_train.max(), 100).reshape(-1, 1)
+    y_range = model.predict(X_range)
+    plt.plot(X_range, y_range, color='black', linewidth=2, label='Line of Best Fit')
     # TODO: Add x-axis label, y-axis label, and title
-    
+    plt.xlabel('Hours', fontsize=12)
+    plt.ylabel('Scores', fontsize=12)
+    plt.title('Linear Regression: Student Peformance Prediction', fontsize=14, fontweight='bold')
     # TODO: Add legend
-    
+    plt.legend()
     # TODO: Add grid with alpha=0.3
-    
+    plt.grid(True, alpha=0.3)
     # TODO: Save the figure as 'predictions_plot.png' with dpi=300
-    
+    plt.savefig('predictions_plot.png', dpi=300, bbox_inches='tight')
     # TODO: Show the plot
-    pass
+    plt.show()
+
 
 
 def make_prediction(model, hours):
@@ -210,22 +218,36 @@ if __name__ == "__main__":
     
     # Step 1: Load and explore the data
     # TODO: Call load_and_explore_data() with 'student_scores.csv'
-    
+
+    data = load_and_explore_data('student_scores.csv')
+
     # Step 2: Visualize the relationship
     # TODO: Call create_scatter_plot() with the data
-    
+
+    create_scatter_plot(data)
+
     # Step 3: Split the data
     # TODO: Call split_data() and store the returned values
     
+    X_train, X_test, y_train, y_test = split_data(data)
+
     # Step 4: Train the model
     # TODO: Call train_model() with training data
     
+    model = train_model(X_train, y_train)
+
     # Step 5: Evaluate the model
     # TODO: Call evaluate_model() with the model and test data
     
+    predictions = evaluate_model(model, X_test, y_test)
+    
+
     # Step 6: Visualize results
     # TODO: Call visualize_results() with all the necessary arguments
     
+    visualize_results(X_train, y_train, X_test, y_test, predictions, model)
+
+
     # Step 7: Make a new prediction
     # TODO: Call make_prediction() for a student who studied 7 hours
     
